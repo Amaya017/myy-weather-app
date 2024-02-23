@@ -11,10 +11,14 @@ function search(event) {
   function showWeather(response) {
     let temperatureElement = document.querySelector("#temperate");
     let weather = Math.round(response.data.temperature.current);
+    let descriptionElement = document.querySelector("#description");
+
     console.log(weather);
     temperatureElement.innerHTML = `${weather}`;
     let cityElement = document.querySelector("#current-city");
     cityElement.innerHTML = response.data.city;
+    
+    console.log(response);
   }
   
   function formatDate(date) {
