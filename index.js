@@ -1,25 +1,33 @@
-function search(event) {
-    event.preventDefault();
-    let searchInputElement = document.querySelector("#search-input");
-    let city = searchInputElement.value;
-  
-    let apiKey = "bfeaffbe9ob3ec2cadb97183ftf40ece";
-    let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
-    axios.get(apiUrl).then(showWeather);
-  }
-  
-  function showWeather(response) {
+function showWeather(response) {
     let temperatureElement = document.querySelector("#temperate");
     let weather = Math.round(response.data.temperature.current);
     let descriptionElement = document.querySelector("#description");
+    let humidityElement = document.querySelector("#humidity");
+    let windSpeedElement = document .querySelector("#speed");
+    let iconElement = document.querySelector("#icon");
 
     console.log(weather);
     temperatureElement.innerHTML = `${weather}`;
     let cityElement = document.querySelector("#current-city");
     cityElement.innerHTML = response.data.city;
+    descriptionElement.innerHTML = response.data.condition.description;
+    humidityElement.innerHTML = `${response.data.temperature.humidity}%`;
+    windSpeedElement.innerHTML = `${response.data.wind.speed}km/h`; 
+    iconElement.innerHTML =  `<img src="${response.data.condition.icon_url}" alt="img" class="current-temperature-icon">`;
     
-    console.log(response);
   }
+function searchCity(city) {
+    let apiKey = "bfeaffbe9ob3ec2cadb97183ftf40ece";
+    let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(showWeather);
+}
+
+  function search(event) {
+    event.preventDefault();
+    let searchInputElement = document.querySelector("#search-input");
+    searchCity(searchInputElement.value);
+    
+   }
   
   function formatDate(date) {
     let minutes = date.getMinutes();
@@ -55,4 +63,7 @@ function search(event) {
   let currentDate = new Date();
   
   currentDateELement.innerHTML = formatDate(currentDate);
+
+   getForcast("Paris");
+   searchCity("Paris");
   
