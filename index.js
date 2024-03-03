@@ -72,23 +72,18 @@ function searchCity(city) {
       forecastHtml =
         forecastHtml +
         `
-        <div class="weather-forecast-day">
-          <div class="weather-forecast-date">${day}</div>
-          <div class="weather-forecast-icon">🌤️</div>
-          <div class="weather-forecast-temperatures">
-            <div class="weather-forecast-temperature">
-              <strong>15º</strong>
-            </div>
-            <div class="weather-forecast-temperature">9º</div>
-          </div>
-        </div>
+        <div class="weather-forecast-date">${day}</div>
+        <div class="weather-forecast-icon">🌤</div>
+        <div class="weather-forecast-temperature"> <strong>15℃</strong></div>
+        <div class="weather-forecast-temperature">9℃</div>
+        
       `;
     });
   
     let forecastElement = document.querySelector("#forecast");
     forecastElement.innerHTML = forecastHtml;
   }
-  displayForecast(response.data.city);
+  displayForecast();
 
   
   getForcast("Paris");
