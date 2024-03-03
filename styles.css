@@ -103,3 +103,23 @@ body {
     justify-content: space-between;
   }
   
+  .weather-forecast-date {
+    font-size: 16px;
+    opacity: 0.5;
+    text-align: center;
+    line-height: 20px;
+    margin-bottom: 10px;
+  }
+
+  .weather-forecast-icon {
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .weather-forecast-temperatures {
+    padding: 0 10px;
+    ;
+  }

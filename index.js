@@ -6,7 +6,7 @@ function showWeather(response) {
     let windSpeedElement = document .querySelector("#speed");
     let iconElement = document.querySelector("#icon");
 
-    console.log(weather);
+    
     temperatureElement.innerHTML = `${weather}`;
     let cityElement = document.querySelector("#current-city");
     cityElement.innerHTML = response.data.city;
@@ -15,6 +15,7 @@ function showWeather(response) {
     windSpeedElement.innerHTML = `${response.data.wind.speed}km/h`; 
     iconElement.innerHTML =  `<img src="${response.data.condition.icon_url}" alt="img" class="current-temperature-icon">`;
     
+    getForecast(response.data.city);
   }
 function searchCity(city) {
     let apiKey = "bfeaffbe9ob3ec2cadb97183ftf40ece";
@@ -64,27 +65,52 @@ function searchCity(city) {
   
   currentDateELement.innerHTML = formatDate(currentDate);
   
-   function displayForecast() {
-    let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
-    let forecastHtml = "";
+function formatDay(timestamp) {
+  let date = new Date (timestamp * 1000);
+  let days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thurs', 'Fri', 'Sat'];
+
+  return days[date.getDay()];
+}
+
+function getForecast(city) {
+  let apiKey = "bfeaffbe9ob3ec2cadb97183ftf40ece";
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
   
-    days.forEach(function (day) {
+  axios(apiUrl).then(displayForecast);
+
+}
+
+   function displayForecast(response) {
+
+console.log(response);
+    
+    let forecastHtml = "";
+
+  
+  response.data.daily.forEach(function (day, index) {
+      if (index < 5) {
       forecastHtml =
         forecastHtml +
         `
-        <div class="weather-forecast-date">${day}</div>
-        <div class="weather-forecast-icon">🌤</div>
-        <div class="weather-forecast-temperature"> <strong>15℃</strong></div>
-        <div class="weather-forecast-temperature">9℃</div>
-        
+        <div class="weather-forecast-day">
+        <div class="weather-forecast-date">${formatDay(day.time)}</div>
+        <div>
+        <img src="${day.condition.icon_url}" class="weather-forecast-icon" /></div>
+        <div class="weather-forecast-temperatures">
+        <span class="weather-forecast-temperature"> <strong>${Math.round(day.temperature.maximum)}°</strong></span>  
+        <span class="weather-forecast-temperature">${Math.round(day.temperature.minimum)}°</span>
+        </div>
+        </div>
       `;
+      }
     });
   
     let forecastElement = document.querySelector("#forecast");
     forecastElement.innerHTML = forecastHtml;
   }
-  displayForecast();
-
-  
-  getForcast("Paris");
   searchCity("Paris");
+
+ 
+
+  displayForecast();
+  
