@@ -88,7 +88,7 @@ function searchCity(city) {
     let forecastElement = document.querySelector("#forecast");
     forecastElement.innerHTML = forecastHtml;
   }
-  displayForecast();
+  displayForecast(response.data.city);
 
   
   getForcast("Paris");

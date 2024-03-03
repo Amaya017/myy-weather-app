@@ -98,5 +98,8 @@ body {
     color: rgba(39, 33, 66, 0.4);
   }
 
-  
+  .weather-forecast {
+    display: flex;
+    justify-content: space-between;
+  }
   
