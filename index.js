@@ -63,9 +63,6 @@ function searchCity(city) {
   let currentDate = new Date();
   
   currentDateELement.innerHTML = formatDate(currentDate);
-
-   getForcast("Paris");
-   searchCity("Paris");
   
    function displayForecast() {
     let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -92,3 +89,7 @@ function searchCity(city) {
     forecastElement.innerHTML = forecastHtml;
   }
   displayForecast();
+
+  
+  getForcast("Paris");
+  searchCity("Paris");
